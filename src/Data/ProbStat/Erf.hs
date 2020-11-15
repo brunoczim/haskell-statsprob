@@ -1,39 +1,14 @@
-module Lib
-    ( erf
-    , invErf
-    , erfUntil
-    , invErfUntil
-    , stdNormal
-    , invStdNormal
-    ) where
+module Data.ProbStat.Erf (erf, erfUntil, invErf, invErfUntil) where
 
+import Data.ProbStat.Sum (sum, sumState)
 import Prelude hiding (sum)
-import Data.Foldable (foldl')
 import Data.Vector (generate, (!))
 
-sum :: (Int -> Double) -> Int -> Int -> Double
-sum term low high = foldl' step 0 [low .. high]
-  where
-    step acc i = term i + acc
-
-sumState :: (Int -> a -> (Double, a)) -> Int -> Int -> a -> (Double, a)
-sumState term low high init = foldl' step (0, init) [low .. high]
-  where
-    step (acc, state) i = (acc + val, state')
-      where
-        (val, state') = term i state
-
-stdNormal :: Double -> Double
-stdNormal z = sqrt (pi / 2) / sqrt (2 * pi) * erf (z / sqrt 2)
-
-invStdNormal :: Double -> Double
-invStdNormal p = invErf (p * sqrt (2 * pi) / sqrt (pi / 2)) * sqrt 2
-
 erf :: Double -> Double
-erf = erfUntil 60
+erf = erfUntil 1000
 
 invErf :: Double -> Double
-invErf = invErfUntil 100
+invErf = invErfUntil 1000
 
 erfUntil :: Int -> Double -> Double
 erfUntil b z = 2 / sqrt pi * fst (sumState term 0 b 1)

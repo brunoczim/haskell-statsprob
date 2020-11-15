@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e6851cd6fa09f671a74ea73936fe22e91059a3a53316330d29cdd586124342cc
+-- hash: 4ce029d169c4a9a8ba0767a1e6cbfc4c53ab203b6d83575c132717f7973b76f9
 
 name:           statsprob
 version:        0.1.0.0
@@ -27,7 +27,9 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Data.ProbStat.Erf
+      Data.ProbStat.Normal
+      Data.ProbStat.Sum
   other-modules:
       Paths_statsprob
   hs-source-dirs:
